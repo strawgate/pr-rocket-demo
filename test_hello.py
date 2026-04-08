@@ -6,6 +6,3 @@ from hello import greet, add
 def test_greet():
     assert greet("world") == "Hello, world!"
 
-
-def suck_it():
-    lol
