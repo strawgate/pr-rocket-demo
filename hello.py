@@ -3,7 +3,7 @@
 
 def greet(name: str) -> str:
     """Return a greeting."""
-    return f"Hello, {name}!"
+    return f"Hey {name}, welcome!"
 
 
 def add(a: int, b: int) -> int:
