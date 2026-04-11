@@ -13,3 +13,9 @@ def add(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def multiply(a,b):
+    result=a*b
+    unused_var = "this is never used"
+    return result
