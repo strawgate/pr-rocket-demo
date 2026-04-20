@@ -191,3 +191,40 @@ def test_cli_delete_missing_id_prints_error(store, capsys):
     main(["--file", str(store), "delete", "99"])
     out = capsys.readouterr().out
     assert "not found" in out.lower() or "error" in out.lower()
+
+
+# ---------------------------------------------------------------------------
+# CLI — clear-completed
+# ---------------------------------------------------------------------------
+
+
+def test_cli_clear_completed_removes_only_done_tasks(store):
+    main(["--file", str(store), "add", "Keep me"])
+    main(["--file", str(store), "add", "Remove me"])
+    main(["--file", str(store), "complete", "2"])
+
+    main(["--file", str(store), "clear-completed"])
+
+    loaded = load(store)
+    tasks = loaded.list_tasks()
+    assert len(tasks) == 1
+    assert tasks[0].title == "Keep me"
+
+
+def test_cli_clear_completed_prints_count(store, capsys):
+    main(["--file", str(store), "add", "Keep me"])
+    main(["--file", str(store), "add", "Remove me"])
+    main(["--file", str(store), "complete", "2"])
+    capsys.readouterr()
+
+    main(["--file", str(store), "clear-completed"])
+    out = capsys.readouterr().out
+
+    assert "Cleared" in out
+    assert "1" in out
+
+
+def test_cli_clear_completed_handles_empty_store(store, capsys):
+    main(["--file", str(store), "clear-completed"])
+    out = capsys.readouterr().out
+    assert "0" in out
