@@ -191,3 +191,49 @@ def test_cli_delete_missing_id_prints_error(store, capsys):
     main(["--file", str(store), "delete", "99"])
     out = capsys.readouterr().out
     assert "not found" in out.lower() or "error" in out.lower()
+
+
+# ---------------------------------------------------------------------------
+# CLI — update
+# ---------------------------------------------------------------------------
+
+
+def test_cli_update_changes_title_description_and_status(store):
+    main(["--file", str(store), "add", "Draft task"])
+    main(
+        [
+            "--file",
+            str(store),
+            "update",
+            "1",
+            "--title",
+            "Published task",
+            "--description",
+            "Ready to ship",
+            "--status",
+            "in_progress",
+        ]
+    )
+
+    loaded = load(store)
+    task = loaded.get_task(1)
+    assert task.title == "Published task"
+    assert task.description == "Ready to ship"
+    assert task.status == TaskStatus.IN_PROGRESS
+
+
+def test_cli_update_prints_confirmation(store, capsys):
+    main(["--file", str(store), "add", "Write draft"])
+    capsys.readouterr()
+
+    main(["--file", str(store), "update", "1", "--title", "Write final copy"])
+    out = capsys.readouterr().out
+
+    assert "Updated" in out
+    assert "Write final copy" in out
+
+
+def test_cli_update_missing_id_prints_error(store, capsys):
+    main(["--file", str(store), "update", "42", "--title", "Ghost task"])
+    out = capsys.readouterr().out
+    assert "not found" in out.lower() or "error" in out.lower()
