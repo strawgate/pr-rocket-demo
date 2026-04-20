@@ -12,3 +12,8 @@ This repo exists solely for e2e testing. PRs opened here trigger the PR Rocket w
 - Open a PR with merge conflicts → verify `fix_conflicts` feature
 - Use `/rocket` commands in PR comments
 - Test the control panel toggle flow
+
+## Build Exercise
+
+We are progressively turning this demo into a tiny task app with PR Rocket.
+Step 1 focuses on a small in-memory task manager API and tests.

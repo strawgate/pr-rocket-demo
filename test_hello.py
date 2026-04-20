@@ -4,7 +4,7 @@ from hello import greet, add
 
 
 def test_greet():
-    assert greet("world") == "Hello, world!"
+    assert greet("world") == "Hi there, world!"
 
 
 def test_add():
