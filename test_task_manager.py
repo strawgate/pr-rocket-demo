@@ -34,6 +34,11 @@ def test_add_task_stores_description(manager):
     assert task.description == "Cover all edge cases"
 
 
+def test_add_task_stores_tags(manager):
+    task = manager.add_task("Plan trip", tags=["personal", "travel"])
+    assert task.tags == ["personal", "travel"]
+
+
 # ---------------------------------------------------------------------------
 # get_task
 # ---------------------------------------------------------------------------
@@ -77,6 +82,23 @@ def test_list_tasks_filter_by_status(manager):
     assert t2 not in pending
     assert t2 in done
     assert t1 not in done
+
+
+def test_list_tasks_can_filter_by_tag(manager):
+    tagged = manager.add_task("Rotate keys", tags=["ops"])
+    manager.add_task("Buy milk", tags=["home"])
+
+    matches = manager.list_tasks(tag="ops")
+
+    assert matches == [tagged]
+
+
+def test_list_tasks_can_search_title_and_description(manager):
+    roadmap = manager.add_task("Draft roadmap", description="Plan Q3 milestones")
+    manager.add_task("Buy milk", description="Groceries for home")
+
+    assert manager.list_tasks(search="road") == [roadmap]
+    assert manager.list_tasks(search="milestones") == [roadmap]
 
 
 # ---------------------------------------------------------------------------

@@ -62,6 +62,15 @@ def test_save_persists_description(store):
     assert loaded.list_tasks()[0].description == "Look up references"
 
 
+def test_save_persists_tags(store):
+    manager = TaskManager()
+    manager.add_task("Plan trip", tags=["personal", "travel"])
+    save(manager, store)
+
+    loaded = load(store)
+    assert getattr(loaded.list_tasks()[0], "tags", None) == ["personal", "travel"]
+
+
 def test_save_preserves_next_id(store):
     """IDs must not restart after a round-trip (avoids collisions)."""
     manager = TaskManager()
@@ -97,6 +106,13 @@ def test_cli_add_with_description(store):
     loaded = load(store)
     task = loaded.list_tasks()[0]
     assert task.description == "Check docs"
+
+
+def test_cli_add_with_tags(store):
+    main(["--file", str(store), "add", "Plan trip", "--tag", "personal", "--tag", "travel"])
+    loaded = load(store)
+    task = loaded.list_tasks()[0]
+    assert task.tags == ["personal", "travel"]
 
 
 # ---------------------------------------------------------------------------
@@ -138,6 +154,50 @@ def test_cli_list_filter_done(store, capsys):
     out = capsys.readouterr().out
     assert "Done task" in out
     assert "Pending task" not in out
+
+
+def test_cli_list_filter_tag(store, capsys):
+    main(["--file", str(store), "add", "Rotate keys", "--tag", "ops"])
+    main(["--file", str(store), "add", "Buy milk", "--tag", "home"])
+    capsys.readouterr()
+
+    main(["--file", str(store), "list", "--tag", "ops"])
+    out = capsys.readouterr().out
+
+    assert "Rotate keys" in out
+    assert "Buy milk" not in out
+
+
+def test_cli_list_search_matches_description(store, capsys):
+    main(
+        [
+            "--file",
+            str(store),
+            "add",
+            "Draft roadmap",
+            "--description",
+            "Plan Q3 milestones",
+        ]
+    )
+    main(["--file", str(store), "add", "Buy milk", "--description", "Groceries for home"])
+    capsys.readouterr()
+
+    main(["--file", str(store), "list", "--search", "milestones"])
+    out = capsys.readouterr().out
+
+    assert "Draft roadmap" in out
+    assert "Buy milk" not in out
+
+
+def test_cli_list_shows_tags(store, capsys):
+    main(["--file", str(store), "add", "Rotate keys", "--tag", "ops", "--tag", "urgent"])
+    capsys.readouterr()
+
+    main(["--file", str(store), "list"])
+    out = capsys.readouterr().out
+
+    assert "#ops" in out
+    assert "#urgent" in out
 
 
 # ---------------------------------------------------------------------------
