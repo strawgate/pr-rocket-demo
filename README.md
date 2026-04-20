@@ -42,23 +42,4 @@ python task_cli.py delete 2
 python task_cli.py --file my_tasks.json list
 ```
 
-Tasks are persisted to `tasks.json` in the working directory by default.
-
-## Task CLI Usage
-
-```bash
-# Add a task
-python task_cli.py add "Buy milk"
-python task_cli.py add "Research" --description "Check the docs"
-
-# List all tasks
-python task_cli.py list
-
-# Filter by status: pending | in_progress | done
-python task_cli.py list --status pending
-
-# Complete a task by ID
-python task_cli.py complete 1
-```
-
-Tasks are persisted to `tasks.json` by default. Use `--file PATH` to specify a different store.
+Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
