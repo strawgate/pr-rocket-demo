@@ -82,3 +82,10 @@ class TaskManager:
         if task_id not in self._tasks:
             raise TaskNotFoundError(task_id)
         del self._tasks[task_id]
+
+    def clear_completed(self) -> int:
+        """Remove all DONE tasks and return the number removed."""
+        done_ids = [tid for tid, t in self._tasks.items() if t.status == TaskStatus.DONE]
+        for tid in done_ids:
+            del self._tasks[tid]
+        return len(done_ids)

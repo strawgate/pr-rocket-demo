@@ -51,6 +51,12 @@ def cmd_delete(args: argparse.Namespace, manager) -> None:
     print(f"Deleted task [{args.id}].")
 
 
+def cmd_clear_completed(args: argparse.Namespace, manager) -> None:
+    """Remove all completed tasks."""
+    count = manager.clear_completed()
+    print(f"Cleared {count} completed task(s).")
+
+
 # ---------------------------------------------------------------------------
 # Argument parser
 # ---------------------------------------------------------------------------
@@ -92,6 +98,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_delete = sub.add_parser("delete", help="Delete a task")
     p_delete.add_argument("id", type=int, help="Task ID")
 
+    # clear-completed
+    sub.add_parser("clear-completed", help="Remove all completed tasks")
+
     return parser
 
 
@@ -112,6 +121,7 @@ def main(argv=None) -> None:
         "add": cmd_add,
         "complete": cmd_complete,
         "delete": cmd_delete,
+        "clear-completed": cmd_clear_completed,
     }
     handlers[args.command](args, manager)
 
