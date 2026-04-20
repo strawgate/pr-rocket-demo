@@ -17,3 +17,29 @@ This repo exists solely for e2e testing. PRs opened here trigger the PR Rocket w
 
 We are progressively turning this demo into a tiny task app with PR Rocket.
 Step 1 focuses on a small in-memory task manager API and tests.
+Step 2 adds a small CLI and JSON persistence on top of that task manager.
+
+## Task CLI Usage
+
+```bash
+# Add a task
+python task_cli.py add "Buy milk"
+python task_cli.py add "Write report" --description "Q2 summary"
+
+# List all tasks
+python task_cli.py list
+
+# Filter by status: pending, in_progress, done
+python task_cli.py list --status pending
+
+# Complete a task
+python task_cli.py complete 1
+
+# Delete a task
+python task_cli.py delete 2
+
+# Use a custom store file
+python task_cli.py --file my_tasks.json list
+```
+
+Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
