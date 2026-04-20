@@ -34,6 +34,16 @@ def test_add_task_stores_description(manager):
     assert task.description == "Cover all edge cases"
 
 
+def test_add_task_defaults_priority_to_medium(manager):
+    task = manager.add_task("Ship release")
+    assert getattr(task, "priority", None) == "medium"
+
+
+def test_add_task_accepts_priority(manager):
+    task = manager.add_task("Fix production", priority="high")
+    assert task.priority == "high"
+
+
 # ---------------------------------------------------------------------------
 # get_task
 # ---------------------------------------------------------------------------
@@ -77,6 +87,15 @@ def test_list_tasks_filter_by_status(manager):
     assert t2 not in pending
     assert t2 in done
     assert t1 not in done
+
+
+def test_list_tasks_can_filter_by_priority(manager):
+    manager.add_task("Clean desk", priority="low")
+    urgent = manager.add_task("Fix production", priority="high")
+
+    high_priority = manager.list_tasks(priority="high")
+
+    assert high_priority == [urgent]
 
 
 # ---------------------------------------------------------------------------

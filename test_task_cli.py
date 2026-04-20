@@ -62,6 +62,15 @@ def test_save_persists_description(store):
     assert loaded.list_tasks()[0].description == "Look up references"
 
 
+def test_save_persists_priority(store):
+    manager = TaskManager()
+    manager.add_task("Fix production", priority="high")
+    save(manager, store)
+
+    loaded = load(store)
+    assert getattr(loaded.list_tasks()[0], "priority", None) == "high"
+
+
 def test_save_preserves_next_id(store):
     """IDs must not restart after a round-trip (avoids collisions)."""
     manager = TaskManager()
@@ -97,6 +106,13 @@ def test_cli_add_with_description(store):
     loaded = load(store)
     task = loaded.list_tasks()[0]
     assert task.description == "Check docs"
+
+
+def test_cli_add_with_priority(store):
+    main(["--file", str(store), "add", "Fix production", "--priority", "high"])
+    loaded = load(store)
+    task = loaded.list_tasks()[0]
+    assert task.priority == "high"
 
 
 # ---------------------------------------------------------------------------
@@ -138,6 +154,33 @@ def test_cli_list_filter_done(store, capsys):
     out = capsys.readouterr().out
     assert "Done task" in out
     assert "Pending task" not in out
+
+
+def test_cli_list_filter_priority(store, capsys):
+    main(["--file", str(store), "add", "Fix production", "--priority", "high"])
+    main(["--file", str(store), "add", "Clean desk", "--priority", "low"])
+    capsys.readouterr()
+
+    main(["--file", str(store), "list", "--priority", "high"])
+    out = capsys.readouterr().out
+
+    assert "Fix production" in out
+    assert "Clean desk" not in out
+
+
+def test_cli_list_sorts_high_priority_first(store, capsys):
+    main(["--file", str(store), "add", "Clean desk", "--priority", "low"])
+    main(["--file", str(store), "add", "Write docs"])
+    main(["--file", str(store), "add", "Fix production", "--priority", "high"])
+    capsys.readouterr()
+
+    main(["--file", str(store), "list"])
+    out = capsys.readouterr().out
+
+    assert out.index("Fix production") < out.index("Write docs") < out.index("Clean desk")
+    assert "[high]" in out
+    assert "[medium]" in out
+    assert "[low]" in out
 
 
 # ---------------------------------------------------------------------------
