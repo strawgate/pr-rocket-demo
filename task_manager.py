@@ -13,6 +13,9 @@ class TaskStatus(str, Enum):
     DONE = "done"
 
 
+PRIORITY_ORDER = {"high": 0, "medium": 1, "low": 2}
+
+
 @dataclass
 class Task:
     """Represents a single task."""
@@ -21,6 +24,7 @@ class Task:
     title: str
     description: str = ""
     status: TaskStatus = TaskStatus.PENDING
+    priority: str = "medium"
 
 
 class TaskNotFoundError(KeyError):
@@ -35,9 +39,9 @@ class TaskManager:
         self._tasks: dict[int, Task] = {}
         self._next_id: int = 1
 
-    def add_task(self, title: str, description: str = "") -> Task:
+    def add_task(self, title: str, description: str = "", priority: str = "medium") -> Task:
         """Create and store a new task, returning it."""
-        task = Task(id=self._next_id, title=title, description=description)
+        task = Task(id=self._next_id, title=title, description=description, priority=priority)
         self._tasks[self._next_id] = task
         self._next_id += 1
         return task
@@ -48,11 +52,13 @@ class TaskManager:
             raise TaskNotFoundError(task_id)
         return self._tasks[task_id]
 
-    def list_tasks(self, status: Optional[TaskStatus] = None) -> list[Task]:
-        """Return all tasks, optionally filtered by *status*."""
+    def list_tasks(self, status: Optional[TaskStatus] = None, priority: Optional[str] = None) -> list[Task]:
+        """Return all tasks, optionally filtered by *status* and/or *priority*."""
         tasks = list(self._tasks.values())
         if status is not None:
             tasks = [t for t in tasks if t.status == status]
+        if priority is not None:
+            tasks = [t for t in tasks if t.priority == priority]
         return tasks
 
     def update_task(

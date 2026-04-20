@@ -14,20 +14,24 @@ from task_store import DEFAULT_PATH, load, save
 
 
 def cmd_list(args: argparse.Namespace, manager) -> None:
-    """List tasks, optionally filtered by status."""
+    """List tasks, optionally filtered by status and/or priority, sorted high→medium→low."""
+    from task_manager import PRIORITY_ORDER
+
     status = TaskStatus(args.status) if args.status else None
-    tasks = manager.list_tasks(status=status)
+    priority = args.priority if args.priority else None
+    tasks = manager.list_tasks(status=status, priority=priority)
     if not tasks:
         print("No tasks found.")
         return
+    tasks = sorted(tasks, key=lambda t: PRIORITY_ORDER.get(t.priority, 1))
     for task in tasks:
         desc = f"  {task.description}" if task.description else ""
-        print(f"[{task.id}] [{task.status.value}] {task.title}{desc}")
+        print(f"[{task.id}] [{task.status.value}] [{task.priority}] {task.title}{desc}")
 
 
 def cmd_add(args: argparse.Namespace, manager) -> None:
     """Add a new task."""
-    task = manager.add_task(args.title, description=args.description or "")
+    task = manager.add_task(args.title, description=args.description or "", priority=args.priority or "medium")
     print(f"Added task [{task.id}]: {task.title}")
 
 
@@ -78,11 +82,22 @@ def build_parser() -> argparse.ArgumentParser:
         choices=[s.value for s in TaskStatus],
         help="Filter by status",
     )
+    p_list.add_argument(
+        "--priority",
+        choices=["low", "medium", "high"],
+        help="Filter by priority",
+    )
 
     # add
     p_add = sub.add_parser("add", help="Add a new task")
     p_add.add_argument("title", help="Task title")
     p_add.add_argument("--description", "-d", default="", help="Optional description")
+    p_add.add_argument(
+        "--priority",
+        choices=["low", "medium", "high"],
+        default="medium",
+        help="Task priority (default: medium)",
+    )
 
     # complete
     p_complete = sub.add_parser("complete", help="Mark a task as done")
