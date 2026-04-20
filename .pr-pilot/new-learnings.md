@@ -1,0 +1,3 @@
+- This repo uses `python -m pytest` to run tests (no Makefile or pyproject.toml — pytest must be installed manually)
+- The `greet` function returns "Hi there, {name}!" after the main-branch refactor; tests must match this value
+- Auto-pilot should build `task_manager.py` + `test_task_manager.py` as part of the progressive build exercise
