@@ -68,6 +68,7 @@ class TaskManager:
         title: Optional[str] = None,
         description: Optional[str] = None,
         status: Optional[TaskStatus] = None,
+        priority: Optional[str] = None,
     ) -> Task:
         """Update fields on an existing task and return it."""
         task = self.get_task(task_id)
@@ -77,6 +78,8 @@ class TaskManager:
             task.description = description
         if status is not None:
             task.status = status
+        if priority is not None:
+            task.priority = priority
         return task
 
     def complete_task(self, task_id: int) -> Task:

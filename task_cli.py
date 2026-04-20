@@ -4,7 +4,7 @@
 import argparse
 from pathlib import Path
 
-from task_manager import TaskNotFoundError, TaskStatus
+from task_manager import PRIORITY_ORDER, TaskNotFoundError, TaskStatus
 from task_store import DEFAULT_PATH, load, save
 
 
@@ -15,8 +15,6 @@ from task_store import DEFAULT_PATH, load, save
 
 def cmd_list(args: argparse.Namespace, manager) -> None:
     """List tasks, optionally filtered by status and/or priority, sorted high→medium→low."""
-    from task_manager import PRIORITY_ORDER
-
     status = TaskStatus(args.status) if args.status else None
     priority = args.priority if args.priority else None
     tasks = manager.list_tasks(status=status, priority=priority)
