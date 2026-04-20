@@ -20,6 +20,7 @@ def load(path: Path = DEFAULT_PATH) -> TaskManager:
             title=item["title"],
             description=item.get("description", ""),
             status=TaskStatus(item["status"]),
+            tags=item.get("tags", []),
         )
         manager._tasks[task.id] = task
     manager._next_id = data.get(
@@ -39,6 +40,7 @@ def save(manager: TaskManager, path: Path = DEFAULT_PATH) -> None:
                 "title": t.title,
                 "description": t.description,
                 "status": t.status.value,
+                "tags": t.tags,
             }
             for t in manager._tasks.values()
         ],

@@ -14,20 +14,22 @@ from task_store import DEFAULT_PATH, load, save
 
 
 def cmd_list(args: argparse.Namespace, manager) -> None:
-    """List tasks, optionally filtered by status."""
+    """List tasks, optionally filtered by status, tag, or search."""
     status = TaskStatus(args.status) if args.status else None
-    tasks = manager.list_tasks(status=status)
+    tasks = manager.list_tasks(status=status, tag=args.tag, search=args.search)
     if not tasks:
         print("No tasks found.")
         return
     for task in tasks:
         desc = f"  {task.description}" if task.description else ""
-        print(f"[{task.id}] [{task.status.value}] {task.title}{desc}")
+        tags = (" " + " ".join(f"#{t}" for t in task.tags)) if task.tags else ""
+        print(f"[{task.id}] [{task.status.value}] {task.title}{desc}{tags}")
 
 
 def cmd_add(args: argparse.Namespace, manager) -> None:
     """Add a new task."""
-    task = manager.add_task(args.title, description=args.description or "")
+    tags = args.tag if args.tag else []
+    task = manager.add_task(args.title, description=args.description or "", tags=tags)
     print(f"Added task [{task.id}]: {task.title}")
 
 
@@ -78,11 +80,14 @@ def build_parser() -> argparse.ArgumentParser:
         choices=[s.value for s in TaskStatus],
         help="Filter by status",
     )
+    p_list.add_argument("--tag", default=None, help="Filter by tag")
+    p_list.add_argument("--search", default=None, help="Search title and description")
 
     # add
     p_add = sub.add_parser("add", help="Add a new task")
     p_add.add_argument("title", help="Task title")
     p_add.add_argument("--description", "-d", default="", help="Optional description")
+    p_add.add_argument("--tag", action="append", dest="tag", help="Add a tag (repeatable)")
 
     # complete
     p_complete = sub.add_parser("complete", help="Mark a task as done")

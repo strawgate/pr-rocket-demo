@@ -1,6 +1,6 @@
 """In-memory task manager library."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
 
@@ -21,6 +21,7 @@ class Task:
     title: str
     description: str = ""
     status: TaskStatus = TaskStatus.PENDING
+    tags: list[str] = field(default_factory=list)
 
 
 class TaskNotFoundError(KeyError):
@@ -35,9 +36,9 @@ class TaskManager:
         self._tasks: dict[int, Task] = {}
         self._next_id: int = 1
 
-    def add_task(self, title: str, description: str = "") -> Task:
+    def add_task(self, title: str, description: str = "", tags: Optional[list[str]] = None) -> Task:
         """Create and store a new task, returning it."""
-        task = Task(id=self._next_id, title=title, description=description)
+        task = Task(id=self._next_id, title=title, description=description, tags=list(tags or []))
         self._tasks[self._next_id] = task
         self._next_id += 1
         return task
@@ -48,11 +49,21 @@ class TaskManager:
             raise TaskNotFoundError(task_id)
         return self._tasks[task_id]
 
-    def list_tasks(self, status: Optional[TaskStatus] = None) -> list[Task]:
-        """Return all tasks, optionally filtered by *status*."""
+    def list_tasks(
+        self,
+        status: Optional[TaskStatus] = None,
+        tag: Optional[str] = None,
+        search: Optional[str] = None,
+    ) -> list[Task]:
+        """Return all tasks, optionally filtered by *status*, *tag*, or *search*."""
         tasks = list(self._tasks.values())
         if status is not None:
             tasks = [t for t in tasks if t.status == status]
+        if tag is not None:
+            tasks = [t for t in tasks if tag in t.tags]
+        if search is not None:
+            query = search.lower()
+            tasks = [t for t in tasks if query in t.title.lower() or query in t.description.lower()]
         return tasks
 
     def update_task(
