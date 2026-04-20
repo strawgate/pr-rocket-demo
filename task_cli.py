@@ -51,6 +51,22 @@ def cmd_delete(args: argparse.Namespace, manager) -> None:
     print(f"Deleted task [{args.id}].")
 
 
+def cmd_update(args: argparse.Namespace, manager) -> None:
+    """Update a task's title, description, or status."""
+    status = TaskStatus(args.status) if args.status else None
+    try:
+        task = manager.update_task(
+            args.id,
+            title=args.title or None,
+            description=args.description,
+            status=status,
+        )
+    except TaskNotFoundError:
+        print(f"Error: task {args.id} not found.")
+        return
+    print(f"Updated task [{task.id}]: {task.title}")
+
+
 # ---------------------------------------------------------------------------
 # Argument parser
 # ---------------------------------------------------------------------------
@@ -92,6 +108,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_delete = sub.add_parser("delete", help="Delete a task")
     p_delete.add_argument("id", type=int, help="Task ID")
 
+    # update
+    p_update = sub.add_parser("update", help="Update a task")
+    p_update.add_argument("id", type=int, help="Task ID")
+    p_update.add_argument("--title", "-t", default="", help="New title")
+    p_update.add_argument("--description", "-d", default=None, help="New description")
+    p_update.add_argument(
+        "--status",
+        choices=[s.value for s in TaskStatus],
+        help="New status",
+    )
+
     return parser
 
 
@@ -112,6 +139,7 @@ def main(argv=None) -> None:
         "add": cmd_add,
         "complete": cmd_complete,
         "delete": cmd_delete,
+        "update": cmd_update,
     }
     handlers[args.command](args, manager)
 
