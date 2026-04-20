@@ -31,7 +31,7 @@ def test_load_missing_file_returns_empty(store):
 
 def test_save_and_load_roundtrip(store):
     manager = TaskManager()
-    t1 = manager.add_task("Buy milk", description="Whole milk")
+    manager.add_task("Buy milk", description="Whole milk")
     t2 = manager.add_task("Walk dog")
     manager.complete_task(t2.id)
 
@@ -162,5 +162,32 @@ def test_cli_complete_persists_status(store):
 
 def test_cli_complete_missing_id_prints_error(store, capsys):
     main(["--file", str(store), "complete", "99"])
+    out = capsys.readouterr().out
+    assert "not found" in out.lower() or "error" in out.lower()
+
+
+# ---------------------------------------------------------------------------
+# CLI — delete
+# ---------------------------------------------------------------------------
+
+
+def test_cli_delete_removes_task(store):
+    main(["--file", str(store), "add", "To delete"])
+    main(["--file", str(store), "delete", "1"])
+    loaded = load(store)
+    assert loaded.list_tasks() == []
+
+
+def test_cli_delete_prints_confirmation(store, capsys):
+    main(["--file", str(store), "add", "Temp task"])
+    capsys.readouterr()
+    main(["--file", str(store), "delete", "1"])
+    out = capsys.readouterr().out
+    assert "Deleted" in out
+    assert "1" in out
+
+
+def test_cli_delete_missing_id_prints_error(store, capsys):
+    main(["--file", str(store), "delete", "99"])
     out = capsys.readouterr().out
     assert "not found" in out.lower() or "error" in out.lower()
