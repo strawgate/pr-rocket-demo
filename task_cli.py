@@ -22,7 +22,7 @@ def cmd_list(args: argparse.Namespace, manager) -> None:
         return
     for task in tasks:
         desc = f"  {task.description}" if task.description else ""
-        tags = (" " + " ".join(f"#{t}" for t in task.tags)) if task.tags else ""
+        tags = (" " + " ".join(f"#{t}" for t in sorted(task.tags))) if task.tags else ""
         print(f"[{task.id}] [{task.status.value}] {task.title}{desc}{tags}")
 
 

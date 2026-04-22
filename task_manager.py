@@ -56,7 +56,7 @@ class TaskManager:
         search: Optional[str] = None,
     ) -> list[Task]:
         """Return all tasks, optionally filtered by *status*, *tag*, or *search*."""
-        tasks = list(self._tasks.values())
+        tasks = sorted(self._tasks.values(), key=lambda t: t.id)
         if status is not None:
             tasks = [t for t in tasks if t.status == status]
         if tag is not None:
