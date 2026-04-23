@@ -140,6 +140,25 @@ def test_cli_list_filter_done(store, capsys):
     assert "Pending task" not in out
 
 
+def test_cli_list_orders_active_work_before_done(store, capsys):
+    manager = TaskManager()
+    first = manager.add_task("First pending")
+    second = manager.add_task("Second pending")
+    third = manager.add_task("Work in progress")
+    done = manager.add_task("Already done")
+    manager.update_task(third.id, status=TaskStatus.IN_PROGRESS)
+    manager.complete_task(done.id)
+    save(manager, store)
+
+    main(["--file", str(store), "list"])
+    lines = [line for line in capsys.readouterr().out.splitlines() if line.strip()]
+
+    assert "First pending" in lines[0]
+    assert "Work in progress" in lines[1]
+    assert "Second pending" in lines[2]
+    assert "Already done" in lines[3]
+
+
 # ---------------------------------------------------------------------------
 # CLI — complete
 # ---------------------------------------------------------------------------

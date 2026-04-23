@@ -79,6 +79,20 @@ def test_list_tasks_filter_by_status(manager):
     assert t1 not in done
 
 
+def test_list_tasks_orders_active_work_before_done(manager):
+    first = manager.add_task("First pending")
+    second = manager.add_task("Second pending")
+    third = manager.add_task("Work in progress")
+    done = manager.add_task("Already done")
+
+    manager.update_task(third.id, status=TaskStatus.IN_PROGRESS)
+    manager.complete_task(done.id)
+
+    ordered = manager.list_tasks()
+
+    assert [task.id for task in ordered] == [first.id, third.id, second.id, done.id]
+
+
 # ---------------------------------------------------------------------------
 # update_task
 # ---------------------------------------------------------------------------
