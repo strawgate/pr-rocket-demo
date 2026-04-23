@@ -75,7 +75,7 @@ class TaskManager:
 
     def complete_task(self, task_id: int) -> Task:
         """Mark *task_id* as DONE and return it."""
-        return self.update_task(task_id, status=TaskStatus.DONE)
+        return self.update_task(task_id, status=TaskStatus.IN_PROGRESS)
 
     def delete_task(self, task_id: int) -> None:
         """Remove *task_id* from the store."""
