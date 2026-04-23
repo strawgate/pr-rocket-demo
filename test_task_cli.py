@@ -167,6 +167,33 @@ def test_cli_complete_missing_id_prints_error(store, capsys):
 
 
 # ---------------------------------------------------------------------------
+# CLI — start
+# ---------------------------------------------------------------------------
+
+
+def test_cli_start_sets_task_in_progress(store):
+    main(["--file", str(store), "add", "Draft release notes"])
+    main(["--file", str(store), "start", "1"])
+    loaded = load(store)
+    assert loaded.get_task(1).status == TaskStatus.IN_PROGRESS
+
+
+def test_cli_start_prints_confirmation(store, capsys):
+    main(["--file", str(store), "add", "Investigate flaky test"])
+    capsys.readouterr()
+    main(["--file", str(store), "start", "1"])
+    out = capsys.readouterr().out
+    assert "Started" in out
+    assert "Investigate flaky test" in out
+
+
+def test_cli_start_missing_id_prints_error(store, capsys):
+    main(["--file", str(store), "start", "99"])
+    out = capsys.readouterr().out
+    assert "not found" in out.lower() or "error" in out.lower()
+
+
+# ---------------------------------------------------------------------------
 # CLI — delete
 # ---------------------------------------------------------------------------
 

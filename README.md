@@ -35,6 +35,9 @@ python task_cli.py list --status pending
 # Complete a task
 python task_cli.py complete 1
 
+# Start a task (mark it in progress)
+python task_cli.py start 1
+
 # Delete a task
 python task_cli.py delete 2
 
