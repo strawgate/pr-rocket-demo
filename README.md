@@ -43,3 +43,5 @@ python task_cli.py --file my_tasks.json list
 ```
 
 Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
+
+- E2E validation run at 2026-04-23T07:50:25-05:00
