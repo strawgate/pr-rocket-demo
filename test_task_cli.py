@@ -129,6 +129,29 @@ def test_cli_list_filter_pending(store, capsys):
     assert "Done task" not in out
 
 
+def test_cli_list_compact_no_blank_lines(store, capsys):
+    """Each task must appear on exactly one line with no blank lines between them."""
+    main(["--file", str(store), "add", "Task A"])
+    main(["--file", str(store), "add", "Task B"])
+    capsys.readouterr()  # discard setup output
+    main(["--file", str(store), "list"])
+    out = capsys.readouterr().out
+    lines = [l for l in out.splitlines() if l.strip()]
+    assert len(lines) == 2, f"Expected 2 non-blank lines, got: {out!r}"
+
+
+def test_cli_list_description_on_same_line(store, capsys):
+    """Description must appear on the same line as the task, not on a separate line."""
+    main(["--file", str(store), "add", "Research", "--description", "Check docs"])
+    capsys.readouterr()
+    main(["--file", str(store), "list"])
+    out = capsys.readouterr().out
+    lines = [l for l in out.splitlines() if l.strip()]
+    assert len(lines) == 1, f"Expected single line output, got: {out!r}"
+    assert "Research" in lines[0]
+    assert "Check docs" in lines[0]
+
+
 def test_cli_list_filter_done(store, capsys):
     main(["--file", str(store), "add", "Pending task"])
     main(["--file", str(store), "add", "Done task"])
