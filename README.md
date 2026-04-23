@@ -1,5 +1,7 @@
 # PR Rocket Demo
 
+*This repository was repaired by PR Rocket during live testing of a demo regression (see PR #21).* 
+
 A test repository for end-to-end testing of [PR Rocket](https://github.com/strawgate/pr-pilot).
 
 ## Purpose
