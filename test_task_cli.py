@@ -166,6 +166,24 @@ def test_cli_complete_missing_id_prints_error(store, capsys):
     assert "not found" in out.lower() or "error" in out.lower()
 
 
+def test_cli_reopen_prints_confirmation(store, capsys):
+    main(["--file", str(store), "add", "Follow up"])
+    main(["--file", str(store), "complete", "1"])
+    capsys.readouterr()
+    main(["--file", str(store), "reopen", "1"])
+    out = capsys.readouterr().out
+    assert "Reopened" in out
+    assert "Follow up" in out
+
+
+def test_cli_reopen_persists_status(store):
+    main(["--file", str(store), "add", "Follow up"])
+    main(["--file", str(store), "complete", "1"])
+    main(["--file", str(store), "reopen", "1"])
+    loaded = load(store)
+    assert loaded.get_task(1).status == TaskStatus.PENDING
+
+
 # ---------------------------------------------------------------------------
 # CLI — delete
 # ---------------------------------------------------------------------------

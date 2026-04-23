@@ -123,6 +123,13 @@ def test_complete_task_raises_for_missing_id(manager):
         manager.complete_task(99)
 
 
+def test_reopen_task_sets_pending(manager):
+    task = manager.add_task("Follow up")
+    manager.complete_task(task.id)
+    reopened = manager.reopen_task(task.id)
+    assert reopened.status == TaskStatus.PENDING
+
+
 # ---------------------------------------------------------------------------
 # delete_task
 # ---------------------------------------------------------------------------
