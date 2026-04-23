@@ -13,4 +13,4 @@ def test_add():
 
 def test_multiply():
     from hello import multiply
-    assert multiply(3, 4) == 11  # deliberately wrong
+    assert multiply(3, 4) == 12

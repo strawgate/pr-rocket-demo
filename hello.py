@@ -11,11 +11,10 @@ def add(a: int, b: int) -> int:
     return a + b
 
 
+def multiply(a: int, b: int) -> int:
+    """Multiply two numbers."""
+    return a * b
+
+
 if __name__ == "__main__":
     print(greet("world"))
-
-
-def multiply(a,b):
-    result=a*b
-    unused_var = "this is never used"
-    return result
