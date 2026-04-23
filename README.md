@@ -11,7 +11,7 @@ This repo exists solely for e2e testing. PRs opened here exercise the PR Rocket 
 - Open a PR with a failing lint/test → verify `fix_ci` feature
 - Open a PR with merge conflicts → verify `fix_conflicts` feature
 - Use `/rocket` commands in PR comments
-- Test the control panel toggle flow
+- Test the control panel toggle flow from both the PR timeline and control panel comment
 
 ## Build Exercise
 
