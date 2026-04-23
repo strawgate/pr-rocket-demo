@@ -140,6 +140,28 @@ def test_cli_list_filter_done(store, capsys):
     assert "Pending task" not in out
 
 
+def test_cli_count_empty(store, capsys):
+    main(["--file", str(store), "count"])
+    assert capsys.readouterr().out.strip() == "0 tasks"
+
+
+def test_cli_count_all_tasks(store, capsys):
+    main(["--file", str(store), "add", "Task A"])
+    main(["--file", str(store), "add", "Task B"])
+    capsys.readouterr()
+    main(["--file", str(store), "count"])
+    assert capsys.readouterr().out.strip() == "2 tasks"
+
+
+def test_cli_count_filter_done(store, capsys):
+    main(["--file", str(store), "add", "Pending task"])
+    main(["--file", str(store), "add", "Done task"])
+    main(["--file", str(store), "complete", "2"])
+    capsys.readouterr()
+    main(["--file", str(store), "count", "--status", "done"])
+    assert capsys.readouterr().out.strip() == "1 task"
+
+
 # ---------------------------------------------------------------------------
 # CLI — complete
 # ---------------------------------------------------------------------------
