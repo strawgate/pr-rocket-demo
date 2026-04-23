@@ -21,8 +21,10 @@ def cmd_list(args: argparse.Namespace, manager) -> None:
         print("No tasks found.")
         return
     for task in tasks:
-        desc = f"  {task.description}" if task.description else ""
-        print(f"[{task.id}] [{task.status.value}] {task.title}{desc}")
+        print(f"[{task.id}] [{task.status.value}] {task.title}")
+        if task.description:
+            print(f"  {task.description}")
+        print()
 
 
 def cmd_add(args: argparse.Namespace, manager) -> None:
