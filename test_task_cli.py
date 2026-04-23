@@ -154,8 +154,8 @@ def test_cli_list_orders_active_work_before_done(store, capsys):
     lines = [line for line in capsys.readouterr().out.splitlines() if line.strip()]
 
     assert "First pending" in lines[0]
-    assert "Work in progress" in lines[1]
-    assert "Second pending" in lines[2]
+    assert "Second pending" in lines[1]
+    assert "Work in progress" in lines[2]
     assert "Already done" in lines[3]
 
 

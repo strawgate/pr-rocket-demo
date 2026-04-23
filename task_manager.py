@@ -49,10 +49,17 @@ class TaskManager:
         return self._tasks[task_id]
 
     def list_tasks(self, status: Optional[TaskStatus] = None) -> list[Task]:
-        """Return all tasks, optionally filtered by *status*."""
+        """Return tasks ordered pending → in_progress → done, optionally filtered by *status*."""
         tasks = list(self._tasks.values())
         if status is not None:
             tasks = [t for t in tasks if t.status == status]
+        else:
+            _status_order = {
+                TaskStatus.PENDING: 0,
+                TaskStatus.IN_PROGRESS: 1,
+                TaskStatus.DONE: 2,
+            }
+            tasks.sort(key=lambda t: (_status_order[t.status], t.id))
         return tasks
 
     def update_task(

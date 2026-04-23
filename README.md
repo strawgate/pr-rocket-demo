@@ -26,11 +26,7 @@ Step 2 adds a small CLI and JSON persistence on top of that task manager.
 python task_cli.py add "Buy milk"
 python task_cli.py add "Write report" --description "Q2 summary"
 
-# List all tasks
-python task_cli.py list
-
-# List all tasks with active work first
-# (pending, then in_progress, then done)
+# List all tasks (pending first, then in_progress, then done)
 python task_cli.py list
 
 # Filter by status: pending, in_progress, done

@@ -90,7 +90,7 @@ def test_list_tasks_orders_active_work_before_done(manager):
 
     ordered = manager.list_tasks()
 
-    assert [task.id for task in ordered] == [first.id, third.id, second.id, done.id]
+    assert [task.id for task in ordered] == [first.id, second.id, third.id, done.id]
 
 
 # ---------------------------------------------------------------------------
