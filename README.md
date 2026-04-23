@@ -38,6 +38,12 @@ python task_cli.py complete 1
 # Delete a task
 python task_cli.py delete 2
 
+# Count all tasks
+python task_cli.py count
+
+# Count tasks by status
+python task_cli.py count --status done
+
 # Use a custom store file
 python task_cli.py --file my_tasks.json list
 ```

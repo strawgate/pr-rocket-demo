@@ -51,6 +51,13 @@ def cmd_delete(args: argparse.Namespace, manager) -> None:
     print(f"Deleted task [{args.id}].")
 
 
+def cmd_count(args: argparse.Namespace, manager) -> None:
+    """Print the number of tasks, optionally filtered by status."""
+    status = TaskStatus(args.status) if args.status else None
+    n = len(manager.list_tasks(status=status))
+    print(f"{n} task{'s' if n != 1 else ''}")
+
+
 # ---------------------------------------------------------------------------
 # Argument parser
 # ---------------------------------------------------------------------------
@@ -92,6 +99,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_delete = sub.add_parser("delete", help="Delete a task")
     p_delete.add_argument("id", type=int, help="Task ID")
 
+    # count
+    p_count = sub.add_parser("count", help="Count tasks")
+    p_count.add_argument(
+        "--status",
+        choices=[s.value for s in TaskStatus],
+        help="Filter by status",
+    )
+
     return parser
 
 
@@ -112,6 +127,7 @@ def main(argv=None) -> None:
         "add": cmd_add,
         "complete": cmd_complete,
         "delete": cmd_delete,
+        "count": cmd_count,
     }
     handlers[args.command](args, manager)
 
