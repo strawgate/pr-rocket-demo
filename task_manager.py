@@ -77,6 +77,10 @@ class TaskManager:
         """Mark *task_id* as DONE and return it."""
         return self.update_task(task_id, status=TaskStatus.DONE)
 
+    def reopen_task(self, task_id: int) -> Task:
+        """Mark *task_id* as PENDING and return it."""
+        return self.update_task(task_id, status=TaskStatus.PENDING)
+
     def delete_task(self, task_id: int) -> None:
         """Remove *task_id* from the store."""
         if task_id not in self._tasks:

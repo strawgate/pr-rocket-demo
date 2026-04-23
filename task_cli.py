@@ -41,6 +41,16 @@ def cmd_complete(args: argparse.Namespace, manager) -> None:
     print(f"Completed task [{task.id}]: {task.title}")
 
 
+def cmd_reopen(args: argparse.Namespace, manager) -> None:
+    """Mark a task as pending (reopen it)."""
+    try:
+        task = manager.reopen_task(args.id)
+    except TaskNotFoundError:
+        print(f"Error: task {args.id} not found.")
+        return
+    print(f"Reopened task [{task.id}]: {task.title}")
+
+
 def cmd_delete(args: argparse.Namespace, manager) -> None:
     """Delete a task."""
     try:
@@ -88,6 +98,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_complete = sub.add_parser("complete", help="Mark a task as done")
     p_complete.add_argument("id", type=int, help="Task ID")
 
+    # reopen
+    p_reopen = sub.add_parser("reopen", help="Reopen a completed task")
+    p_reopen.add_argument("id", type=int, help="Task ID")
+
     # delete
     p_delete = sub.add_parser("delete", help="Delete a task")
     p_delete.add_argument("id", type=int, help="Task ID")
@@ -111,6 +125,7 @@ def main(argv=None) -> None:
         "list": cmd_list,
         "add": cmd_add,
         "complete": cmd_complete,
+        "reopen": cmd_reopen,
         "delete": cmd_delete,
     }
     handlers[args.command](args, manager)
