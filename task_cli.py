@@ -31,6 +31,16 @@ def cmd_add(args: argparse.Namespace, manager) -> None:
     print(f"Added task [{task.id}]: {task.title}")
 
 
+def cmd_start(args: argparse.Namespace, manager) -> None:
+    """Mark a task as in progress."""
+    try:
+        task = manager.start_task(args.id)
+    except TaskNotFoundError:
+        print(f"Error: task {args.id} not found.")
+        return
+    print(f"Started task [{task.id}]: {task.title}")
+
+
 def cmd_complete(args: argparse.Namespace, manager) -> None:
     """Mark a task as done."""
     try:
@@ -84,6 +94,10 @@ def build_parser() -> argparse.ArgumentParser:
     p_add.add_argument("title", help="Task title")
     p_add.add_argument("--description", "-d", default="", help="Optional description")
 
+    # start
+    p_start = sub.add_parser("start", help="Mark a task as in progress")
+    p_start.add_argument("id", type=int, help="Task ID")
+
     # complete
     p_complete = sub.add_parser("complete", help="Mark a task as done")
     p_complete.add_argument("id", type=int, help="Task ID")
@@ -110,6 +124,7 @@ def main(argv=None) -> None:
     handlers = {
         "list": cmd_list,
         "add": cmd_add,
+        "start": cmd_start,
         "complete": cmd_complete,
         "delete": cmd_delete,
     }

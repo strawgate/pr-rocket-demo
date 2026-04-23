@@ -73,6 +73,10 @@ class TaskManager:
             task.status = status
         return task
 
+    def start_task(self, task_id: int) -> Task:
+        """Mark *task_id* as IN_PROGRESS and return it."""
+        return self.update_task(task_id, status=TaskStatus.IN_PROGRESS)
+
     def complete_task(self, task_id: int) -> Task:
         """Mark *task_id* as DONE and return it."""
         return self.update_task(task_id, status=TaskStatus.DONE)
