@@ -124,6 +124,14 @@ def test_complete_task_returns_done_task(manager):
     assert completed.status == TaskStatus.DONE
 
 
+def test_complete_task_preserves_title_and_description(manager):
+    task = manager.add_task("Title stays", description="Description stays")
+    completed = manager.complete_task(task.id)
+    assert completed.title == "Title stays"
+    assert completed.description == "Description stays"
+    assert completed.status == TaskStatus.DONE
+
+
 def test_complete_task_raises_for_missing_id(manager):
     with pytest.raises(TaskNotFoundError):
         manager.complete_task(99)
