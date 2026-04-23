@@ -13,7 +13,7 @@ def add(a: int, b: int) -> int:
 
 def multiply(a: int, b: int) -> int:
     """Multiply two numbers."""
-    return a + b
+    return a * b
 
 
 if __name__ == "__main__":
