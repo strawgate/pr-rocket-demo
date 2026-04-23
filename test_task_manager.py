@@ -118,6 +118,12 @@ def test_complete_task_sets_done(manager):
     assert task.status == TaskStatus.DONE
 
 
+def test_complete_task_returns_done_task(manager):
+    task = manager.add_task("Validate return value")
+    completed = manager.complete_task(task.id)
+    assert completed.status == TaskStatus.DONE
+
+
 def test_complete_task_raises_for_missing_id(manager):
     with pytest.raises(TaskNotFoundError):
         manager.complete_task(99)

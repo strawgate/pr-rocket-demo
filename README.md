@@ -44,4 +44,15 @@ python task_cli.py --file my_tasks.json list
 
 Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
 
-- E2E validation run at 2026-04-23T07:50:25-05:00
+## Live PR Rocket Validation
+
+This section documents the PR Rocket automation commands exercised in this PR:
+
+- `/rocket enable auto-pilot`: Enabled full auto-pilot mode for PR Rocket automation.
+- `/rocket enable auto-body`: Enabled automatic PR body population.
+
+**What happened:**
+- PR Rocket responded to `/rocket` commands by enabling automation features.
+- The agent made a follow-up commit (this one) to exercise the full PR Rocket loop, including CI/test verification and summary reporting.
+
+See PR comments for the full automation flow.
