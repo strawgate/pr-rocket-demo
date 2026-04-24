@@ -2,8 +2,8 @@
 
 
 def greet(name: str) -> str:
-    """Return a greeting."""
-    return f"Hi there, {name}!"
+    """Return a greeting, stripping leading/trailing whitespace from name."""
+    return f"Hi there, {name.strip()}!"
 
 
 def add(a: int, b: int) -> int:
