@@ -16,5 +16,10 @@ def subtract(a: int, b: int) -> int:
     return a - b
 
 
+def normalize_username(name: str) -> str:
+    """Return *name* lowercased with leading/trailing spaces stripped and internal runs collapsed."""
+    return " ".join(name.split()).lower()
+
+
 if __name__ == "__main__":
     print(greet("world"))

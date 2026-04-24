@@ -37,6 +37,9 @@ class TaskManager:
 
     def add_task(self, title: str, description: str = "") -> Task:
         """Create and store a new task, returning it."""
+        title = title.strip()
+        if not title:
+            raise ValueError("Task title must not be blank.")
         task = Task(id=self._next_id, title=title, description=description)
         self._tasks[self._next_id] = task
         self._next_id += 1

@@ -27,7 +27,11 @@ def cmd_list(args: argparse.Namespace, manager) -> None:
 
 def cmd_add(args: argparse.Namespace, manager) -> None:
     """Add a new task."""
-    task = manager.add_task(args.title, description=args.description or "")
+    try:
+        task = manager.add_task(args.title, description=args.description or "")
+    except ValueError:
+        print("Error: task title must not be blank.")
+        return
     print(f"Added task [{task.id}]: {task.title}")
 
 
