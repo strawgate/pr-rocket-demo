@@ -1,6 +1,6 @@
 """Tests for hello.py."""
 
-from hello import add, greet, subtract
+from hello import add, greet, slugify_title, subtract
 
 
 def test_greet():
@@ -13,3 +13,7 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_slugify_title():
+    assert slugify_title("Hello, World!") == "hello-world"
