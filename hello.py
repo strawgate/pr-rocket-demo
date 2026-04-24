@@ -2,7 +2,9 @@
 
 
 def greet(name: str) -> str:
-    """Return a greeting."""
+    """Return a greeting, falling back to 'world' for blank or whitespace-only names."""
+    if not name or not name.strip():
+        name = "world"
     return f"Hi there, {name}!"
 
 
