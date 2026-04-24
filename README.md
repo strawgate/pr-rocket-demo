@@ -4,7 +4,7 @@ A test repository for end-to-end testing of [PR Rocket](https://github.com/straw
 
 ## Purpose
 
-This repo exists solely for e2e testing. PRs opened here exercise the PR Rocket webhook → sandbox → agent pipeline from the main branch side and from docs-only scenarios.
+This repo exists solely for e2e testing. PRs opened here exercise the PR Rocket webhook → sandbox → agent pipeline across docs-only changes, merge-conflict drills, and other e2e scenarios.
 
 ## Test Scenarios
 
