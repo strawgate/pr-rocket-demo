@@ -12,3 +12,4 @@ This repo exists solely for e2e testing. PRs opened here trigger the PR Rocket w
 - Open a PR with merge conflicts → verify `fix_conflicts` feature
 - Use `/rocket` commands in PR comments
 - Test the control panel toggle flow
+- Refresh PR title/body after a docs-only change
