@@ -1,5 +1,14 @@
 """A simple module for e2e testing PR Rocket."""
 
+import re
+
+
+def slugify_title(text: str) -> str:
+    """Convert a title string to a URL-friendly slug."""
+    text = text.lower()
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    return text.strip("-")
+
 
 def greet(name: str) -> str:
     """Return a greeting."""
