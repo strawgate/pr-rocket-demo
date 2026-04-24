@@ -34,6 +34,11 @@ def test_add_task_stores_description(manager):
     assert task.description == "Cover all edge cases"
 
 
+def test_add_task_trims_surrounding_whitespace(manager):
+    task = manager.add_task("  Write docs  ")
+    assert task.title == "Write docs"
+
+
 # ---------------------------------------------------------------------------
 # get_task
 # ---------------------------------------------------------------------------
