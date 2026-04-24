@@ -1,6 +1,6 @@
 """Tests for hello.py."""
 
-from hello import add, greet, subtract
+from hello import add, greet, normalize_username, subtract
 
 
 def test_greet():
@@ -16,12 +16,8 @@ def test_subtract():
 
 
 def test_normalize_username_basic():
-    from hello import normalize_username
-
     assert normalize_username("  Alice Example  ") == "alice example"
 
 
 def test_normalize_username_internal_spacing():
-    from hello import normalize_username
-
     assert normalize_username("Bob   Smith") == "bob smith"
