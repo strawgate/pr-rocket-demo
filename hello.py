@@ -16,5 +16,10 @@ def subtract(a: int, b: int) -> int:
     return a - b
 
 
+def greet_formally(name: str, title: str) -> str:
+    """Return a formal greeting with a title."""
+    return f"Hello, {title} {name}."
+
+
 if __name__ == "__main__":
     print(greet("world"))
