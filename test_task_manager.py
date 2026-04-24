@@ -34,6 +34,16 @@ def test_add_task_stores_description(manager):
     assert task.description == "Cover all edge cases"
 
 
+def test_add_task_trims_title_whitespace(manager):
+    task = manager.add_task("  Write tests  ")
+    assert task.title == "Write tests"
+
+
+def test_add_task_rejects_blank_title(manager):
+    with pytest.raises(ValueError):
+        manager.add_task("   ")
+
+
 # ---------------------------------------------------------------------------
 # get_task
 # ---------------------------------------------------------------------------

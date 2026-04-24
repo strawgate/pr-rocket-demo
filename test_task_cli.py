@@ -99,6 +99,22 @@ def test_cli_add_with_description(store):
     assert task.description == "Check docs"
 
 
+def test_cli_add_trims_title_before_persisting(store):
+    main(["--file", str(store), "add", "  Research  "])
+    loaded = load(store)
+    task = loaded.list_tasks()[0]
+    assert task.title == "Research"
+
+
+def test_cli_add_blank_title_prints_error(store, capsys):
+    main(["--file", str(store), "add", "   "])
+    out = capsys.readouterr().out
+    assert "title" in out.lower()
+    assert "blank" in out.lower() or "empty" in out.lower()
+    loaded = load(store)
+    assert loaded.list_tasks() == []
+
+
 # ---------------------------------------------------------------------------
 # CLI — list
 # ---------------------------------------------------------------------------
