@@ -185,6 +185,7 @@ def test_cli_delete_prints_confirmation(store, capsys):
     out = capsys.readouterr().out
     assert "Deleted" in out
     assert "1" in out
+    assert "Temp task" in out
 
 
 def test_cli_delete_missing_id_prints_error(store, capsys):
