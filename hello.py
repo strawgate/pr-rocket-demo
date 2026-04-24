@@ -4,9 +4,15 @@ import re
 
 
 def slugify_title(text: str) -> str:
-    """Convert a title string to a URL-friendly slug."""
+    """Convert a title string to a URL-friendly slug.
+
+    Lowercases the text, then collapses underscores and any sequence of
+    repeated punctuation/whitespace into a single hyphen.
+    """
     text = text.lower()
-    text = re.sub(r"[^a-z0-9]+", "-", text)
+    text = re.sub(r"[_\s]+", "-", text)       # collapse underscores and whitespace
+    text = re.sub(r"[^a-z0-9-]+", "-", text)  # replace remaining non-alphanumeric with hyphen
+    text = re.sub(r"-+", "-", text)            # collapse repeated hyphens
     return text.strip("-")
 
 

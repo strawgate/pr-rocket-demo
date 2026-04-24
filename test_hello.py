@@ -17,3 +17,8 @@ def test_subtract():
 
 def test_slugify_title():
     assert slugify_title("Hello, World!") == "hello-world"
+    assert slugify_title("hello_world") == "hello-world"
+    assert slugify_title("hello___world") == "hello-world"
+    assert slugify_title("hello...world") == "hello-world"
+    assert slugify_title("hello_-_world") == "hello-world"
+    assert slugify_title("  leading and trailing  ") == "leading-and-trailing"
