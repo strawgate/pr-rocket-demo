@@ -151,6 +151,7 @@ def test_cli_complete_prints_confirmation(store, capsys):
     out = capsys.readouterr().out
     assert "Completed" in out
     assert "Deploy app" in out
+    assert "done" in out.lower()
 
 
 def test_cli_complete_persists_status(store):
