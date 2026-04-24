@@ -80,10 +80,11 @@ def test_save_preserves_next_id(store):
 
 
 def test_cli_add_prints_confirmation(store, capsys):
-    main(["--file", str(store), "add", "Fix bug"])
+    main(["--file", str(store), "add", "Fix bug", "--description", "Handle edge case"])
     out = capsys.readouterr().out
     assert "Fix bug" in out
     assert "Added" in out
+    assert "Handle edge case" in out
 
 
 def test_cli_add_persists_task(store):
