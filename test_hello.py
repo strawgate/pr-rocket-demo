@@ -1,6 +1,6 @@
 """Tests for hello.py."""
 
-from hello import greet, add
+from hello import add, greet, subtract
 
 
 def test_greet():
@@ -9,3 +9,7 @@ def test_greet():
 
 def test_add():
     assert add(2, 3) == 5
+
+
+def test_subtract():
+    assert subtract(7, 4) == 3
