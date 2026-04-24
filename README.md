@@ -15,7 +15,7 @@ This repo exists solely for e2e testing. PRs opened here exercise the PR Rocket 
 
 ## Build Exercise
 
-We are progressively turning this demo into a tiny task app with PR Rocket.
+We are progressively turning this demo into a tiny task-tracking app with PR Rocket.
 Step 1 focuses on a small in-memory task manager API and tests.
 Step 2 adds a small CLI and JSON persistence on top of that task manager.
 
