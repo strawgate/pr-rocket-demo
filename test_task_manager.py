@@ -146,3 +146,23 @@ def test_delete_task_only_removes_target(manager):
     assert manager.get_task(t1.id) is t1
     with pytest.raises(TaskNotFoundError):
         manager.get_task(t2.id)
+
+
+# ---------------------------------------------------------------------------
+# title trimming and whitespace rejection
+# ---------------------------------------------------------------------------
+
+
+def test_add_task_trims_title(manager):
+    task = manager.add_task("  Buy milk  ")
+    assert task.title == "Buy milk"
+
+
+def test_add_task_rejects_whitespace_only_title(manager):
+    with pytest.raises(ValueError):
+        manager.add_task("   ")
+
+
+def test_add_task_rejects_empty_title(manager):
+    with pytest.raises(ValueError):
+        manager.add_task("")

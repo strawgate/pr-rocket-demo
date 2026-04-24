@@ -43,3 +43,8 @@ python task_cli.py --file my_tasks.json list
 ```
 
 Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
+
+### Title handling
+
+- Titles are automatically trimmed of leading and trailing whitespace on add.
+- Whitespace-only titles (e.g. `"   "`) are rejected with an error.
