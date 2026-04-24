@@ -152,6 +152,13 @@ def test_cli_complete_prints_confirmation(store, capsys):
     assert "Completed" in out
     assert "Deploy app" in out
     assert "done" in out.lower()
+    # Confirmation must be a single line containing both the task ID and title
+    confirmation_line = next(
+        (line for line in out.splitlines() if "done" in line.lower()), None
+    )
+    assert confirmation_line is not None, "No confirmation line with 'done' found"
+    assert "1" in confirmation_line, "Task ID missing from confirmation line"
+    assert "Deploy app" in confirmation_line, "Task title missing from confirmation line"
 
 
 def test_cli_complete_persists_status(store):
