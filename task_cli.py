@@ -28,7 +28,7 @@ def cmd_list(args: argparse.Namespace, manager) -> None:
 def cmd_add(args: argparse.Namespace, manager) -> None:
     """Add a new task."""
     task = manager.add_task(args.title, description=args.description or "")
-    print(f"Added task [{task.id}]: {task.title} — saved.")
+    print(f"Added task [{task.id}]: {task.title} — saved successfully.")
 
 
 def cmd_complete(args: argparse.Namespace, manager) -> None:

@@ -84,7 +84,7 @@ def test_cli_add_prints_confirmation(store, capsys):
     out = capsys.readouterr().out
     assert "Fix bug" in out
     assert "Added" in out
-    assert "saved" in out.lower()
+    assert "saved successfully" in out.lower()
 
 
 def test_cli_add_persists_task(store):
