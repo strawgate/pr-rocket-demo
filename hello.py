@@ -11,5 +11,10 @@ def add(a: int, b: int) -> int:
     return a + b
 
 
+def subtract(a: int, b: int) -> int:
+    """Subtract b from a."""
+    return a - b
+
+
 if __name__ == "__main__":
     print(greet("world"))
