@@ -44,11 +44,11 @@ def cmd_complete(args: argparse.Namespace, manager) -> None:
 def cmd_delete(args: argparse.Namespace, manager) -> None:
     """Delete a task."""
     try:
-        manager.delete_task(args.id)
+        task = manager.delete_task(args.id)
     except TaskNotFoundError:
         print(f"Error: task {args.id} not found.")
         return
-    print(f"Deleted task [{args.id}].")
+    print(f"Deleted task [{task.id}]: {task.title}.")
 
 
 # ---------------------------------------------------------------------------

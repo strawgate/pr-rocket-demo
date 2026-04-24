@@ -77,8 +77,9 @@ class TaskManager:
         """Mark *task_id* as DONE and return it."""
         return self.update_task(task_id, status=TaskStatus.DONE)
 
-    def delete_task(self, task_id: int) -> None:
-        """Remove *task_id* from the store."""
+    def delete_task(self, task_id: int) -> "Task":
+        """Remove *task_id* from the store and return the deleted task."""
         if task_id not in self._tasks:
             raise TaskNotFoundError(task_id)
-        del self._tasks[task_id]
+        task = self._tasks.pop(task_id)
+        return task
