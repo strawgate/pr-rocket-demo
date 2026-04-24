@@ -13,3 +13,15 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_normalize_username_basic():
+    from hello import normalize_username
+
+    assert normalize_username("  Alice Example  ") == "alice example"
+
+
+def test_normalize_username_internal_spacing():
+    from hello import normalize_username
+
+    assert normalize_username("Bob   Smith") == "bob smith"
