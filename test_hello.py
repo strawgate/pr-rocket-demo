@@ -16,8 +16,16 @@ def test_subtract():
 
 
 def test_normalize_username_basic():
-    assert normalize_username("  Alice Example  ") == "alice example"
+    assert normalize_username(" Alice Example! ") == "alice-example"
 
 
 def test_normalize_username_internal_spacing():
-    assert normalize_username("Bob   Smith") == "bob smith"
+    assert normalize_username("Bob   Smith") == "bob-smith"
+
+
+def test_normalize_username_punctuation():
+    assert normalize_username(" Alice Example! ") == "alice-example"
+
+
+def test_normalize_username_no_trailing_dash():
+    assert normalize_username("Alice!") == "alice"

@@ -17,8 +17,10 @@ def subtract(a: int, b: int) -> int:
 
 
 def normalize_username(username: str) -> str:
-    """Return a normalized username: stripped, lowercased, with collapsed whitespace."""
-    return " ".join(username.split()).lower()
+    """Return a normalized username: stripped, punctuation removed, lowercased, internal whitespace replaced with dashes."""
+    import re
+    cleaned = re.sub(r"[^\w\s]", "", username)
+    return re.sub(r"\s+", "-", cleaned.strip()).lower()
 
 
 if __name__ == "__main__":
