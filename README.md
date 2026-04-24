@@ -12,6 +12,7 @@ This repo exists solely for e2e testing. PRs opened here exercise the PR Rocket 
 - Open a PR with merge conflicts → verify `fix_conflicts` feature
 - Use `/rocket` commands in PR comments
 - Test the control panel toggle flow using both slash commands and inline status updates
+- Exercise comment-burst handling on docs-only PR metadata updates
 
 ## Build Exercise
 
