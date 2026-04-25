@@ -92,6 +92,12 @@ def test_cli_add_persists_task(store):
     assert any(t.title == "Persisted task" for t in loaded.list_tasks())
 
 
+def test_cli_add_trims_title(store):
+    main(["--file", str(store), "add", "  Clean inbox  "])
+    loaded = load(store)
+    assert loaded.list_tasks()[0].title == "Clean inbox"
+
+
 def test_cli_add_with_description(store):
     main(["--file", str(store), "add", "Research", "--description", "Check docs"])
     loaded = load(store)
