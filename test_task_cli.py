@@ -105,6 +105,13 @@ def test_cli_add_with_description(store):
     assert task.description == "Check docs"
 
 
+def test_cli_add_trims_description(store):
+    main(["--file", str(store), "add", "Research", "--description", "  Check docs  "])
+    loaded = load(store)
+    task = loaded.list_tasks()[0]
+    assert task.description == "Check docs"
+
+
 # ---------------------------------------------------------------------------
 # CLI — list
 # ---------------------------------------------------------------------------
