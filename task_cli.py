@@ -75,7 +75,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_list = sub.add_parser("list", help="List tasks")
     p_list.add_argument(
         "--status",
-        type=str.lower,
+        type=lambda s: s.strip().lower(),
         choices=[s.value for s in TaskStatus],
         help="Filter by status",
     )
