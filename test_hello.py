@@ -7,6 +7,10 @@ def test_greet():
     assert greet("world") == "Hi there, world!"
 
 
+def test_greet_strips_whitespace():
+    assert greet("  Ada  ") == "Hi there, Ada!"
+
+
 def test_add():
     assert add(2, 3) == 5
 
