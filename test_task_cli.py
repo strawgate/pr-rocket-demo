@@ -140,6 +140,17 @@ def test_cli_list_filter_done(store, capsys):
     assert "Pending task" not in out
 
 
+def test_cli_list_filter_status_is_case_insensitive(store, capsys):
+    main(["--file", str(store), "add", "Pending task"])
+    main(["--file", str(store), "add", "Done task"])
+    main(["--file", str(store), "complete", "2"])
+    capsys.readouterr()  # discard setup output
+    main(["--file", str(store), "list", "--status", "DONE"])
+    out = capsys.readouterr().out
+    assert "Done task" in out
+    assert "Pending task" not in out
+
+
 # ---------------------------------------------------------------------------
 # CLI — complete
 # ---------------------------------------------------------------------------
