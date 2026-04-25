@@ -27,7 +27,7 @@ def cmd_list(args: argparse.Namespace, manager) -> None:
 
 def cmd_add(args: argparse.Namespace, manager) -> None:
     """Add a new task."""
-    task = manager.add_task(args.title.strip(), description=args.description or "")
+    task = manager.add_task(args.title.strip(), description=(args.description or "").strip())
     print(f"Added task [{task.id}]: {task.title}")
 
 
