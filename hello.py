@@ -18,3 +18,8 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def shout(s: str) -> str:
+    """Return s in all caps with an exclamation mark."""
+    return s.upper() + "!"
