@@ -13,3 +13,11 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_isogram():
+    from hello import is_isogram
+    assert is_isogram("Subdermatoglyphic")
+    assert not is_isogram("hello")
+    assert is_isogram("")
+    assert is_isogram("six-year-old")

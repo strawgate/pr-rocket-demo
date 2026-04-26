@@ -18,3 +18,9 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def is_isogram(s: str) -> bool:
+    """Return True if no letter occurs more than once (case-insensitive, ignores non-letters)."""
+    letters = [c.lower() for c in s if c.isalpha()]
+    return len(letters) == len(set(letters))
