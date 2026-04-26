@@ -18,3 +18,13 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def multiply(a: int, b: int) -> int:
+    """Multiply two numbers."""
+    return a * b
+
+
+def divide(a: int, b: int) -> float:
+    """Divide a by b. Raises ZeroDivisionError if b is 0."""
+    return a / b
