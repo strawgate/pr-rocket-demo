@@ -18,3 +18,8 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def reverse_words(s: str) -> str:
+    """Reverse the order of whitespace-separated words in s."""
+    return " ".join(s.split()[::-1])

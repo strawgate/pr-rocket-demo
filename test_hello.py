@@ -13,3 +13,11 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_reverse_words():
+    from hello import reverse_words
+    assert reverse_words("hello world") == "world hello"
+    assert reverse_words("a b c") == "c b a"
+    assert reverse_words("") == ""
+    assert reverse_words("one") == "one"
