@@ -43,3 +43,19 @@ python task_cli.py --file my_tasks.json list
 ```
 
 Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
+
+## Contributing
+
+Pull requests are welcome. To get started:
+
+1. Fork the repository
+2. Create a feature branch off `main`
+3. Make your changes with tests
+4. Open a PR — PR Rocket will automatically rewrite your PR title and body if you leave them blank
+
+### Style
+
+- Python 3.12+
+- Follow PEP 8
+- Tests live next to the modules they test (e.g. `test_hello.py` for `hello.py`)
+- Keep changes focused — one feature per PR
