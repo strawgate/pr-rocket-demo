@@ -13,3 +13,11 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_count_vowels():
+    from hello import count_vowels
+    assert count_vowels("hello") == 2
+    assert count_vowels("Programming") == 3
+    assert count_vowels("xyz") == 0
+    assert count_vowels("") == 0

@@ -18,3 +18,8 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def count_vowels(s: str) -> int:
+    """Return the number of vowels in s (case-insensitive, English vowels only)."""
+    return sum(1 for c in s.lower() if c in "aeiou")
