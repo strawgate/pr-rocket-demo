@@ -13,3 +13,11 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_anagram():
+    from hello import is_anagram
+    assert is_anagram("listen", "silent")
+    assert is_anagram("Astronomer", "Moon starer")
+    assert not is_anagram("hello", "world")
+    assert is_anagram("", "")

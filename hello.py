@@ -18,3 +18,8 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def is_anagram(a: str, b: str) -> bool:
+    """Return True if a and b are anagrams (case-insensitive, ignores spaces)."""
+    return sorted(a.lower().replace(" ", "")) == sorted(b.lower().replace(" ", ""))
