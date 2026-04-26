@@ -18,3 +18,13 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def power(base: int, exp: int) -> int:
+    """Return base raised to the power exp."""
+    if exp < 0:
+        raise ValueError("Negative exponents not supported for integer math")
+    result = 1
+    for _ in range(exp):
+        result *= base
+    return result
