@@ -29,3 +29,7 @@ def test_squared_negative():
 
 def test_squared_one():
     assert squared(1) == 1
+
+
+def test_squared_large():
+    assert squared(100) == 10000
