@@ -18,3 +18,16 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def multiply(a: int, b: int) -> int:
+    """Multiply two numbers."""
+    return a * b
+
+
+def power(base: int, exp: int) -> int:
+    """Raise base to exp power."""
+    result = 1
+    for _ in range(exp):
+        result *= base
+    return result
