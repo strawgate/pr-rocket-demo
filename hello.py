@@ -27,4 +27,4 @@ if __name__ == "__main__":
 
 def repeat(s: str, n: int) -> str:
     """Repeat string s exactly n times."""
-    return s * (n + 1)  # BUG: off-by-one
+    return s * n
