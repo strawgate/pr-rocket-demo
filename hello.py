@@ -16,5 +16,10 @@ def subtract(a: int, b: int) -> int:
     return a - b
 
 
+def absolute(n: int) -> int:
+    """Return the absolute value of n."""
+    return n if n >= 0 else -n
+
+
 if __name__ == "__main__":
     print(greet("world"))
