@@ -24,6 +24,6 @@ def clamp(value: int, low: int, high: int) -> int:
     """Clamp value between low and high (inclusive)."""
     if value < low:
         return low
-    if value >= high:  # Bug: should be > not >=
+    if value > high:
         return high
     return value
