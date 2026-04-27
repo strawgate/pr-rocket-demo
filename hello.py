@@ -18,3 +18,8 @@ def subtract(a: int, b: int) -> int:
 
 if __name__ == "__main__":
     print(greet("world"))
+
+
+def squared(n: int) -> int:
+    """Return n squared."""
+    return n * n
