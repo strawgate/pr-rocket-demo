@@ -16,5 +16,10 @@ def subtract(a: int, b: int) -> int:
     return a - b
 
 
+def negate(n: int) -> int:
+    """Return the negation of n."""
+    return -n
+
+
 if __name__ == "__main__":
     print(greet("world"))
