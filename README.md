@@ -43,3 +43,12 @@ python task_cli.py --file my_tasks.json list
 ```
 
 Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
+
+## Changelog
+
+### v1.1.0
+- Added multiply and power functions
+- Improved documentation
+
+### v1.0.0
+- Initial release with greet, add, and subtract
