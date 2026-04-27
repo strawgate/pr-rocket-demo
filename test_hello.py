@@ -13,3 +13,9 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_shout():
+    from hello import shout
+    assert shout("hi") == "HI!"
+    assert shout("") == "!"
