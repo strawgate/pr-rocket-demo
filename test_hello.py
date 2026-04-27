@@ -1,6 +1,6 @@
 """Tests for hello.py."""
 
-from hello import add, greet, subtract
+from hello import absolute, add, greet, subtract
 
 
 def test_greet():
@@ -13,3 +13,15 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_absolute_positive():
+    assert absolute(5) == 5
+
+
+def test_absolute_negative():
+    assert absolute(-5) == 5
+
+
+def test_absolute_zero():
+    assert absolute(0) == 0
