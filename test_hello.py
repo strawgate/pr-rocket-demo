@@ -13,3 +13,10 @@ def test_add():
 
 def test_subtract():
     assert subtract(7, 4) == 3
+
+
+def test_repeat():
+    from hello import repeat
+    assert repeat("ab", 3) == "ababab"
+    assert repeat("x", 1) == "x"
+    assert repeat("", 5) == ""
