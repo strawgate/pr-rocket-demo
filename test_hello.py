@@ -25,3 +25,7 @@ def test_squared_zero():
 
 def test_squared_negative():
     assert squared(-3) == 9
+
+
+def test_squared_one():
+    assert squared(1) == 1
