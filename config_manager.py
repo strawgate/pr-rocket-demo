@@ -26,7 +26,13 @@ class ConfigManager:
         return self.config.get(key, default)
 
     def set(self, key: str, value) -> None:
-        """Set a config value and persist."""
+        """Set a config value and persist.
+
+        Note: This method is not thread-safe. External callers should
+        coordinate access if using from multiple threads.
+        """
+        if not isinstance(key, str) or not key:
+            raise ValueError("key must be a non-empty string")
         self.config[key] = value
         path = os.environ.get("CONFIG_PATH", "/etc/app/config.json")
         with open(path, "w") as f:
