@@ -1,4 +1,5 @@
 """Configuration manager."""
+import fcntl
 import json
 import os
 
@@ -26,17 +27,17 @@ class ConfigManager:
         return self.config.get(key, default)
 
     def set(self, key: str, value) -> None:
-        """Set a config value and persist.
-
-        Note: This method is not thread-safe. External callers should
-        coordinate access if using from multiple threads.
-        """
+        """Set a config value and persist with file locking."""
         if not isinstance(key, str) or not key:
             raise ValueError("key must be a non-empty string")
         self.config[key] = value
         path = os.environ.get("CONFIG_PATH", "/etc/app/config.json")
         with open(path, "w") as f:
-            json.dump(self.config, f)
+            fcntl.flock(f, fcntl.LOCK_EX)
+            try:
+                json.dump(self.config, f)
+            finally:
+                fcntl.flock(f, fcntl.LOCK_UN)
 
     def get_database_url(self) -> str:
         """Get database URL from config or environment."""
@@ -52,4 +53,3 @@ class ConfigManager:
     def reload(self):
         """Reload from disk."""
         self._load()
-
