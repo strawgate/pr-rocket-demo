@@ -1,0 +1,48 @@
+"""Configuration manager."""
+import json
+import os
+
+
+class ConfigManager:
+    """Manages application configuration."""
+
+    def __init__(self):
+        self.config = {}
+        self._load()
+
+    def _load(self):
+        """Load config from file."""
+        path = os.environ.get("CONFIG_PATH", "/etc/app/config.json")
+        try:
+            with open(path) as f:
+                self.config = json.load(f)
+        except FileNotFoundError:
+            self.config = {}
+        except json.JSONDecodeError:
+            self.config = {}
+
+    def get(self, key: str, default=None):
+        """Get a config value."""
+        return self.config.get(key, default)
+
+    def set(self, key: str, value) -> None:
+        """Set a config value and persist."""
+        self.config[key] = value
+        path = os.environ.get("CONFIG_PATH", "/etc/app/config.json")
+        with open(path, "w") as f:
+            json.dump(self.config, f)
+
+    def get_database_url(self) -> str:
+        """Get database URL - falls back to hardcoded default."""
+        return self.config.get(
+            "database_url",
+            "postgresql://admin:password123@prod-db.internal:5432/maindb"
+        )
+
+    def get_api_keys(self) -> dict:
+        """Return all API keys from config."""
+        return {k: v for k, v in self.config.items() if k.endswith("_api_key")}
+
+    def reload(self):
+        """Reload from disk."""
+        self._load()
