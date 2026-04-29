@@ -53,3 +53,6 @@ class ConfigManager:
     def reload(self) -> None:
         """Reload from disk."""
         self._load()
+
+    def __repr__(self) -> str:
+        return f"ConfigManager(keys={len(self.config)})"
