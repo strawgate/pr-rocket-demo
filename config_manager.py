@@ -52,3 +52,4 @@ class ConfigManager:
     def reload(self):
         """Reload from disk."""
         self._load()
+
