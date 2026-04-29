@@ -50,6 +50,6 @@ class ConfigManager:
         """Return all API keys from config."""
         return {k: v for k, v in self.config.items() if k.endswith("_api_key")}
 
-    def reload(self):
+    def reload(self) -> None:
         """Reload from disk."""
         self._load()
