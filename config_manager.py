@@ -33,10 +33,10 @@ class ConfigManager:
             json.dump(self.config, f)
 
     def get_database_url(self) -> str:
-        """Get database URL - falls back to hardcoded default."""
+        """Get database URL from config or environment."""
         return self.config.get(
             "database_url",
-            "postgresql://admin:password123@prod-db.internal:5432/maindb"
+            os.environ.get("DATABASE_URL", "")
         )
 
     def get_api_keys(self) -> dict:
