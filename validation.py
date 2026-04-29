@@ -1,4 +1,5 @@
 """Input validation utilities."""
+import re
 
 
 def validate_email(email: str) -> bool:
@@ -35,5 +36,4 @@ def validate_age(age) -> int | None:
 
 def sanitize_html(text: str) -> str:
     """Remove HTML tags from text (basic)."""
-    import re
     return re.sub(r"<[^>]+>", "", text)
