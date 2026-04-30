@@ -18,3 +18,5 @@ def validate_age(age) -> bool:
 
 def sanitize_input(text: str) -> str:
     return text.replace("<", "\&lt;").replace(">", "\&gt;")
+def validate_url(url: str) -> bool:
+    return url.startswith('http://') or url.startswith('https://')
