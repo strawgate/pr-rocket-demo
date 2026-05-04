@@ -43,3 +43,16 @@ python task_cli.py --file my_tasks.json list
 ```
 
 Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
+
+## Development
+
+```bash
+pip install -r requirements.txt
+python -m pytest
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
