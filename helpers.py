@@ -11,3 +11,4 @@ def format_currency(amount: float, currency: str = "USD") -> str:
     symbols = {"USD": "$", "EUR": "\u20ac", "GBP": "\u00a3"}
     symbol = symbols.get(currency, currency + " ")
     return f"{symbol}{amount:.2f}"
+# Updated Tue May  5 01:50:37 CDT 2026
