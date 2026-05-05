@@ -1,0 +1,26 @@
+# .pr-rocket.yml – PR Rocket configuration for strawgate/pr-rocket-demo
+features:
+  auto_title: true
+  auto_body: true
+  auto_review: true
+  auto_labels: true
+
+title_threshold: medium
+body_threshold: medium
+
+check_agents:
+  - name: style-guide
+    blocking: false
+    context_files:
+      - .github/STYLE.md
+      - README.md
+    prompt: |
+      Review this diff for adherence to the code style guide provided in the context files.
+
+      Flag when:
+      - Exported functions lack explicit return types
+      - `any` is used instead of `unknown`
+      - Class components are introduced
+      - Missing `key` props in list renders
+
+      The style guide defines these rules. Use it as the source of truth.
