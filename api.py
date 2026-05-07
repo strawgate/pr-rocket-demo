@@ -44,3 +44,7 @@ class Config:
     
     def set(self, key, value):
         self._settings[key] = value
+
+def deprecated_function():
+    """This function is deprecated."""
+    pass
