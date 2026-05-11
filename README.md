@@ -8,6 +8,7 @@ This repo exists solely for e2e testing. PRs opened here exercise the PR Rocket 
 It also serves as a safe target for validating production webhook and cache-hydration behavior after PR Rocket deploys.
 Small README-only main-branch commits here are expected when validating webhook and cache refresh plumbing.
 This line was added to validate the RepoDO repo-context refresh RPC fix on May 9, 2026.
+This line was added to validate live build-marker-era PR Rocket behavior on May 10, 2026.
 
 ## Test Scenarios
 
