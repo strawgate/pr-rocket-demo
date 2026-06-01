@@ -47,3 +47,5 @@ python task_cli.py --file my_tasks.json list
 
 Tasks are persisted to `tasks.json` in the working directory by default. Use `--file PATH` to specify a different store.
 x
+
+<!-- pr-rocket-check-agent-smoke:1780279646:972424c0 -->
